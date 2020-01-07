@@ -9,7 +9,7 @@
     <body>
         <h1 id="someText"></h1>
         <script>
-            let students = [
+            let students = `[
                 {
                     name: "Yuri",
                     age: 32,
@@ -20,9 +20,8 @@
                     age: 24,
                     height: 178
                 }
-            ];
-            console.log(students);
+            ]`
+            console.log(JSON.parse(students)[1].age);
         </script>
-        <script src="cdg.js"></script>
     </body>
 </html>
