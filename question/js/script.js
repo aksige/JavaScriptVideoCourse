@@ -14,3 +14,11 @@ function reset() {
     document.getElementById('ageIndays').remove();
 }
 
+// Challenge 2: Cat Generator
+
+function generateCat () {
+    const image = document.createElement('img');
+    const div = document.getElementById('flex-cat-gen');
+    image.src = "https://i.gifer.com/48Z.gif";
+    div.appendChild(image);
+}
