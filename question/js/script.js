@@ -11,7 +11,7 @@ function ageInDays() {
 }
 
 function reset() {
-    document.getElementById('ageIndays').remove();
+    document.getElementById('ageInDays').remove();
 }
 
 // Challenge 2: Cat Generator
