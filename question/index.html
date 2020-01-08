@@ -16,11 +16,15 @@
             <h2>Challenge 1: Your Age in Days</h2>
             <div class="flex-box-container-1">
                 <div>
-                    <button class="btn btn-primary" onclick="ageInDays()">Click me</button>
+                    <button class="btn btn-primary" onclick="ageInDays()">
+                        Click me
+                    </button>
                 </div>
 
                 <div>
-                    <button class="btn btn-danger" onclick="reset()">reset</button>
+                    <button class="btn btn-danger" onclick="reset()">
+                        reset
+                    </button>
                 </div>
             </div>
 
@@ -31,9 +35,44 @@
 
         <div class="container-2">
             <h2>Chalenge 2: Cat Generator</h2>
-            <button class="btn btn-success" id="cat-generator" onclick="generateCat()">Generator Cat</button>
+            <button
+                class="btn btn-success"
+                id="cat-generator"
+                onclick="generateCat()"
+            >
+                Generator Cat
+            </button>
 
-            <div class="flex-box-container-2" id="flex-cat-gen">
+            <div class="flex-box-container-2" id="flex-cat-gen"></div>
+        </div>
+
+        <div class="container-3">
+            <h2>Chalenge 3: Камень, Ножницы, Бумага.</h2>
+            <div class="flex-box-rps" id="flex-box-rps-div">
+                <img
+                    id="rock"
+                    src="./img/rock.png"
+                    height="100"
+                    width="100"
+                    alt=""
+                    onclick="rpsGame(this)"
+                />
+                <img
+                    id="paper"
+                    src="./img/scissors.png"
+                    height="100"
+                    width="100"
+                    alt=""
+                    onclick="rpsGame(this)"
+                />
+                <img
+                    id="scissors"
+                    src="./img/paper.png"
+                    height="100"
+                    width="100"
+                    alt=""
+                    onclick="rpsGame(this)"
+                />
             </div>
         </div>
 
