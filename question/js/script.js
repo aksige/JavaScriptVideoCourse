@@ -167,6 +167,9 @@ const DEALER = blackjackGame['dealer']
 const hitSound = new Audio('sounds/we-2.mp3')
 
 document.querySelector('#blackjack-hit-button').addEventListener('click', blackjackHit);
+
+document.querySelector('#blackjack-deal-button').addEventListener('click', blackjackDeal);
+
 document.querySelector('#blackjack-deal-button').addEventListener('click', blackjackDeal);
 
 function blackjackHit() {
@@ -184,15 +187,17 @@ function randomCard() {
 }
 
 function showCard(card, activePlayer) {
-    let cardImage = document.createElement('img');
-    cardImage.src = `img/${card}.png`;
-    document.querySelector(activePlayer['div']).appendChild(cardImage);
-    hitSound.play();
+    if (activePlayer['score'] <= 21) {
+        let cardImage = document.createElement('img');
+        cardImage.src = `img/${card}.png`;
+        document.querySelector(activePlayer['div']).appendChild(cardImage);
+        hitSound.play();
+    }
 }
 
 function blackjackDeal() {
-    let yourImages = document.querySelector('#your-box').querySelector('img');
-    let dealerImages = document.querySelector('#dealer-box').querySelector('img');
+    let yourImages = document.querySelector('#your-box').querySelectorAll('img');
+    let dealerImages = document.querySelector('#dealer-box').querySelectorAll('img');
 
     for (i = 0; i < yourImages.length; i++) {
         yourImages[i].remove();
@@ -201,6 +206,15 @@ function blackjackDeal() {
     for (i = 0; i < dealerImages.length; i++) {
         dealerImages[i].remove();
     }
+
+    YUO['score'] = 0;
+    DEALER['score'] = 0;
+
+    document.querySelector('#your-blackjack-result').textContent = 0;
+    document.querySelector('#dealer-blackjack-result').textContent = 0;
+
+    document.querySelector('#your-blackjack-result').style.color = '#ffffff';
+    document.querySelector('#dealer-blackjack-result').style.color = '#ffffff';
 }
 
 function updateScore(card, activePlayer) {
@@ -216,5 +230,17 @@ function updateScore(card, activePlayer) {
 }
 
 function showScore(activePlayer) {
-    document.querySelector(activePlayer['scoreSpan']).textContent = activePlayer['score'];
+    if (activePlayer['score'] > 21) {
+        document.querySelector(activePlayer['scoreSpan']).textContent = 'BUST!';
+        document.querySelector(activePlayer['scoreSpan']).style.color = 'red';
+    } else {
+        document.querySelector(activePlayer['scoreSpan']).textContent = activePlayer['score'];
+    }
+}
+
+function dealerLogic() {
+    let card = randomCard();
+    showCard(card, DEALER);
+    updateScore(card, DEALER);
+    showCard(DEALER);
 }
