@@ -165,6 +165,8 @@ const YUO = blackjackGame['you']
 const DEALER = blackjackGame['dealer']
 
 const hitSound = new Audio('sounds/we-2.mp3')
+const winSound = new Audio('sounds/we-2.mp3')
+const lossSound = new Audio('sounds/we-2.mp3')
 
 document.querySelector('#blackjack-hit-button').addEventListener('click', blackjackHit);
 
@@ -196,8 +198,6 @@ function showCard(card, activePlayer) {
 }
 
 function blackjackDeal() {
-    computeWinner();
-
     let yourImages = document.querySelector('#your-box').querySelectorAll('img');
     let dealerImages = document.querySelector('#dealer-box').querySelectorAll('img');
 
@@ -245,30 +245,57 @@ function dealerLogic() {
     showCard(card, DEALER);
     updateScore(card, DEALER);
     showScore(DEALER);
+
+    if (DEALER['score'] > 15) {
+        let winner = computeWinner();
+        showResult(winner);
+    }
 }
 
-// Определение победителя и возвращение того, кто выиграл.
+// Определение победителя.
 
 function computeWinner() {
     let winner;
 
-    if (YOU['score'] <= 21) {
-        if (YOU['score'] > DEALER['score'] || (DEALER['score'] > 21)) {
+    if (YUO['score'] <= 21) {
+        if (YUO['score'] > DEALER['score'] || (DEALER['score'] > 21)) {
             console.log('ПОБЕДИТЕЛЬ!!!');
-            winner = YOU;
-        } else if (YOU['score'] < DEALER['score']) {
+            winner = YUO;
+        } else if (YUO['score'] < DEALER['score']) {
             console.log('Проигрыш! Попробуй еще!');
             winner = DEALER;
-        } else if (YOU['score'] === DEALER['score']) {
-            console.log('Проигрыш! Попробуй еще!');
+        } else if (YUO['score'] === DEALER['score']) {
+            console.log('НИЧЬЯ!');
             winner = DEALER;
         }
-    } else if (YOU['score'] > 21 && DEALER['score'] <= 21) {
+    } else if (YUO['score'] > 21 && DEALER['score'] <= 21) {
         console.log('Проигрыш! Попробуй еще!');
         winner = DEALER;
-    } else if (YOU['score'] > 21 && DEALER['score'] > 21) {
-        console.log('Тащи)))');
+    } else if (YUO['score'] > 21 && DEALER['score'] > 21) {
+        console.log('Тащи!)))');
     }
     console.log('Победитель', winner);
     return winner;
+}
+
+
+function showResult(winner) {
+    let message, messageColor;
+
+    if (winner === YUO) {
+        message = 'Победа!';
+        messageColor = 'green';
+        lossSound.play();
+    } else if (winner === DEALER) {
+        message = 'Проигрыш!!';
+        messageColor = 'red';
+        lossSound.play();
+    } else {
+        message = 'НИЧЬЯ!!';
+        messageColor = 'black';
+        lossSound.play();
+    }
+
+    document.querySelector('#blackjack-result').textContent = message;
+    document.querySelector('#blackjack-result').style.color = messageColor;
 }
